@@ -11,8 +11,10 @@
 #import "UIImageView+AFNetworking.h"
 
 @interface MoviesGridViewController () <UICollectionViewDataSource, UICollectionViewDelegate>
+
 @property (nonatomic, strong) NSArray *movies;
 @property (strong, nonatomic) IBOutlet UICollectionView *collectionView;
+@property (nonatomic, strong) UIRefreshControl *refreshControl;
 
 @end
 
@@ -24,6 +26,12 @@
     self.collectionView.delegate = self;
     
     [self fetchMovies];
+    
+    self.refreshControl = [[UIRefreshControl alloc] init]; // sees how much pull, when should be triggered
+    [self.refreshControl addTarget:self action:@selector(fetchMovies) forControlEvents:UIControlEventValueChanged]; //stop triggered status, crate a target actin pair with the event that you choose
+    [self.collectionView addSubview:self.refreshControl];
+    
+    
     // Do any additional setup after loading the view.
     
     UICollectionViewFlowLayout *layout = (UICollectionViewFlowLayout *) self.collectionView.collectionViewLayout;
@@ -36,6 +44,8 @@
     CGFloat itemWidth = (self.collectionView.frame.size.width - layout.minimumInteritemSpacing *(postersPerLine - 1)) / postersPerLine; //width divided by posters per line to fill screen appropriately with 3 posters (also takes spacing into account
     CGFloat itemHeight = itemWidth * 1.5;
     layout.itemSize = CGSizeMake(itemWidth , itemHeight);
+    
+    
 }
 
 
@@ -58,7 +68,7 @@
             [self.collectionView reloadData];
         }
         // TODO: Reload your table view data
-       //pair
+        [self.refreshControl endRefreshing]; //pair
     }];
     
     [task resume];
