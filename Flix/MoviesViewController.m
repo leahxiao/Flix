@@ -67,7 +67,7 @@
             if (error != nil) {
                 NSLog(@"%@", [error localizedDescription]);
             }
-            else { // api gave something back
+            else { // api gave something back, turn the JSON into an objc dict
                 NSDictionary *dataDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
                 self.movies = dataDictionary[@"results"];
     
@@ -121,7 +121,8 @@
     NSIndexPath *indexPath = [self.tableView indexPathForCell:tappedCell];
     NSDictionary *movie = self.movies[indexPath.row];
     DetailsViewController *detailsViewController = [segue destinationViewController]; //cast that detail view controller
-    detailsViewController.movie = movie; // just pass over the one movie
+    detailsViewController.movie = movie; // just pass over the one movie, not configure views of details of view controller
+    
    
     
 }
