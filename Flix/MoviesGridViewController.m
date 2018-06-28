@@ -26,7 +26,16 @@
     [self fetchMovies];
     // Do any additional setup after loading the view.
     
+    UICollectionViewFlowLayout *layout = (UICollectionViewFlowLayout *) self.collectionView.collectionViewLayout;
     
+    
+    layout.minimumInteritemSpacing = 5;
+    layout.minimumLineSpacing = 5;
+    
+    CGFloat postersPerLine = 3;
+    CGFloat itemWidth = (self.collectionView.frame.size.width - layout.minimumInteritemSpacing *(postersPerLine - 1)) / postersPerLine; //width divided by posters per line to fill screen appropriately with 3 posters (also takes spacing into account
+    CGFloat itemHeight = itemWidth * 1.5;
+    layout.itemSize = CGSizeMake(itemWidth , itemHeight);
 }
 
 
