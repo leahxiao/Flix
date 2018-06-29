@@ -43,7 +43,17 @@
     
     self.titleLabel.text = self.movie[@"title"];
     self.synopsisLabel.text = self.movie[@"overview"];
-     self.ratingLabel.text = [NSString stringWithFormat:@"%@",  self.movie[@"vote_average"]];
+    if([self.movie[@"vote_average"]doubleValue] >= 6.7){
+        self.ratingLabel.textColor = UIColor.greenColor;
+    }
+    else if([self.movie[@"vote_average"]doubleValue] <= 3.3){
+        self.ratingLabel.textColor = UIColor.redColor;
+    }
+    else{
+        self.ratingLabel.textColor = UIColor.orangeColor;
+    };
+    self.ratingLabel.text = [NSString stringWithFormat:@"%@",  self.movie[@"vote_average"]];
+    
     
     [self.titleLabel sizeToFit]; // adjusts so that evertyhing/ all text fits
      [self.synopsisLabel sizeToFit];
