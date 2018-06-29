@@ -40,7 +40,7 @@
 
 - (void) fetchTrailer{
     NSString *firstPart = @"https://api.themoviedb.org/3/movie/";
-    NSString *transition = [firstPart stringByAppendingString:self.movieInfo];
+    NSString *transition = [firstPart stringByAppendingString: self.movieInfo];
     NSString *secondPart = @"/videos?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed&language=en-US";
     NSString *finalURLString = [transition stringByAppendingString:secondPart];
     

@@ -16,7 +16,9 @@
 @interface MoviesViewController () 
 
 @property (nonatomic, strong) NSMutableArray *movies;
+@property (nonatomic, strong) NSArray *filteredMovies;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 @property (nonatomic, strong) UIRefreshControl *refreshControl;
 //@property (nonatomic, strong) NSArray *moviesAlpha;
 
@@ -29,11 +31,13 @@
     //calls this immediately when screnn loads up
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
+    self.searchBar.delegate = self;
     [self fetchMovies];
     
     self.refreshControl = [[UIRefreshControl alloc] init]; // sees how much pull, when should be triggered
     [self.refreshControl addTarget:self action:@selector(fetchMovies) forControlEvents:UIControlEventValueChanged]; //stop triggered status, crate a target actin pair with the event that you choose
     [self.tableView addSubview:self.refreshControl]; // do insert subview if you want it to go behind instead of in front of table (at index 0)
+ //   self.filteredMovies = self.movies;
     
    
     
@@ -66,6 +70,39 @@
     };
     [self.tableView reloadData];
 }
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return self.filteredMovies.count;
+}
+
+//- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+//
+//    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"TableCell"
+//                                                                 forIndexPath:indexPath];
+//    cell.textLabel.text = self.filteredMovies[indexPath.row];
+//
+//    return cell;
+//}
+
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
+    
+    if (searchText.length != 0) {
+        
+        NSPredicate *predicate = [NSPredicate predicateWithBlock:^BOOL(NSDictionary *evaluatedObject, NSDictionary *bindings) {
+            return [evaluatedObject [@"title"] containsString:searchText];
+        }];
+        self.filteredMovies = [self.movies filteredArrayUsingPredicate:predicate];
+        
+        NSLog(@"%@", self.filteredMovies);
+        
+    }
+    else {
+        self.filteredMovies = self.movies;
+    }
+    
+    [self.tableView reloadData];
+    
+}
+
 
 - (void) fetchMovies{
         NSURL *url = [NSURL URLWithString:@"https://api.themoviedb.org/3/movie/now_playing?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed"];
@@ -81,6 +118,7 @@
                
 
                 self.movies = [dataDictionary[@"results"] mutableCopy];
+                self.filteredMovies = self.movies;
                 
 //                for (NSDictionary *movie in self.movies) {
 //                    NSLog(@"%@*", movie[@"title"]);
@@ -97,9 +135,10 @@
 
 
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return self.movies.count; // num movies
-}
+//- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+//    return self.movies.count;
+//    // num movies
+//}
 
 // putting the title and synopsis and image in each cell, this is essentially one of those two special methods that you needed. this is the "filler-up" method
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -109,7 +148,7 @@
     
   
    
-    NSDictionary *movie = self.movies[indexPath.row];
+    NSDictionary *movie = self.filteredMovies[indexPath.row];
     
     cell.titleLabel.text = movie[@"title"];
     cell.synopsisLabel.text = movie[@"overview"];
