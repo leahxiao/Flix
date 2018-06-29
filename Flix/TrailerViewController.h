@@ -9,6 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface TrailerViewController : UIViewController
-@property (nonatomic, strong) NSDictionary *movieInfo;
+@property (nonatomic, strong) NSString *movieInfo;
 
 @end
