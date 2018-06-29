@@ -35,31 +35,7 @@
     [self.refreshControl addTarget:self action:@selector(fetchMovies) forControlEvents:UIControlEventValueChanged]; //stop triggered status, crate a target actin pair with the event that you choose
     [self.tableView addSubview:self.refreshControl]; // do insert subview if you want it to go behind instead of in front of table (at index 0)
     
-    // TODO: Get the array of movies
-    // TODO: Store the movies in a property to use elsewhere
-
-//    NSURL *url = [NSURL URLWithString:@"https://api.themoviedb.org/3/movie/now_playing?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed"];
-//    NSURLRequest *request = [NSURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:10.0];
-//    NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:nil delegateQueue:[NSOperationQueue mainQueue]];
-//    NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-//        if (error != nil) {
-//            NSLog(@"%@", [error localizedDescription]);
-//        }
-//        else { // api gave something back
-//            NSDictionary *dataDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-//            self.movies = dataDictionary[@"results"];
-//
-//            for (NSDictionary *movie in self.movies) {
-//                NSLog(@"%@*", movie[@"title"]);
-//            }
-//            [self.tableView reloadData];
-//        }
-//        // TODO: Reload your table view data
-//
-//
-//    }];
-//
-//    [task resume];
+   
     
 }
 
@@ -79,20 +55,6 @@
         }];
        
         
-//        for (int i =0; i <= [self.movies count]-2; i++){
-//            for (int j =1; j <= [self.movies count]-1; j++){
-//                NSString *stringOne = self.movies[i][@"title"];
-//                NSString *stringTwo = self.movies[j][@"title"];;
-//
-//                NSComparisonResult result = [stringOne compare:stringTwo];
-//                NSDictionary *storage = self.movies[i];
-//              //  if (result == NSOrderedAscending) // stringOne < stringTwo
-//                 //   NSLog(@"0");
-//                if (result == NSOrderedDescending) // stringOne > stringTwo
-//                    self.movies[i] = self.movies[j];
-//                self.movies[j] = storage;
-//            }
-//        }
    }
     else{
         [self.movies sortUsingComparator:^NSComparisonResult(NSDictionary *obj1, NSDictionary *obj2) {
