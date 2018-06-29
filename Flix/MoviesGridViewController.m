@@ -87,8 +87,8 @@
 
 - (nonnull __kindof UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath { // you can ignore the nonoull kind of- its for swift compatibility so you dont really need it
     MovieCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"MovieCollectionCell" forIndexPath:indexPath];
-    
-    NSDictionary *movie = self.movies[indexPath.item]; // no concept of rows in collection 
+    NSDictionary *movie = self.movies[indexPath.item]; // no concept of rows in collection
+    cell.collectionTitleLabel.text = movie[@"title"];
     NSString *baseURLString = @"https://image.tmdb.org/t/p/w500";
     NSString *posterURLString = movie[@"poster_path"];
     NSString *fullPosterURLString = [baseURLString stringByAppendingString:posterURLString];

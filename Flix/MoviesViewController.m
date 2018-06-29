@@ -9,13 +9,16 @@
 #import "MoviesViewController.h"
 #import "MovieCell.h"
 #import "UIImageView+AFNetworking.h"
-#import "DetailsViewController.h" // need this so you can get/ pass info/ porperties back and forth to this separate view controller (cast it below)
+#import "DetailsViewController.h"
+#import "SettingsViewController.h"
+// need this so you can get/ pass info/ porperties back and forth to this separate view controller (cast it below)
 
 @interface MoviesViewController () 
 
-@property (nonatomic, strong) NSArray *movies;
+@property (nonatomic, strong) NSMutableArray *movies;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic, strong) UIRefreshControl *refreshControl;
+//@property (nonatomic, strong) NSArray *moviesAlpha;
 
 @end
 
@@ -59,6 +62,49 @@
 //    [task resume];
     
 }
+
+
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    bool isAlphaOn = [defaults boolForKey:@"isSwitchOn" ];
+    
+    if(isAlphaOn){
+        // block that sorts
+        [self.movies sortUsingComparator:^NSComparisonResult(NSDictionary *obj1, NSDictionary *obj2) {
+            NSString *stringOne = obj1[@"title"];
+            NSString *stringTwo = obj2[@"title"];
+            NSComparisonResult result = [stringOne compare:stringTwo];
+            return result;
+        }];
+       
+        
+//        for (int i =0; i <= [self.movies count]-2; i++){
+//            for (int j =1; j <= [self.movies count]-1; j++){
+//                NSString *stringOne = self.movies[i][@"title"];
+//                NSString *stringTwo = self.movies[j][@"title"];;
+//
+//                NSComparisonResult result = [stringOne compare:stringTwo];
+//                NSDictionary *storage = self.movies[i];
+//              //  if (result == NSOrderedAscending) // stringOne < stringTwo
+//                 //   NSLog(@"0");
+//                if (result == NSOrderedDescending) // stringOne > stringTwo
+//                    self.movies[i] = self.movies[j];
+//                self.movies[j] = storage;
+//            }
+//        }
+   }
+    else{
+        [self.movies sortUsingComparator:^NSComparisonResult(NSDictionary *obj1, NSDictionary *obj2) {
+            NSString *stringOne = obj1[@"popularity"];
+            NSString *stringTwo = obj2[@"popularity"];
+            NSComparisonResult result = [stringOne compare:stringTwo];
+            return result;
+        }];
+    };
+    [self.tableView reloadData];
+}
+
 - (void) fetchMovies{
         NSURL *url = [NSURL URLWithString:@"https://api.themoviedb.org/3/movie/now_playing?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed"];
         NSURLRequest *request = [NSURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:10.0];
@@ -69,11 +115,14 @@
             }
             else { // api gave something back, turn the JSON into an objc dict
                 NSDictionary *dataDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-                self.movies = dataDictionary[@"results"];
-    
-                for (NSDictionary *movie in self.movies) {
-                    NSLog(@"%@*", movie[@"title"]);
-                }
+                
+               
+
+                self.movies = [dataDictionary[@"results"] mutableCopy];
+                
+//                for (NSDictionary *movie in self.movies) {
+//                    NSLog(@"%@*", movie[@"title"]);
+//                }
                 [self.tableView reloadData];
             }
             // TODO: Reload your table view data
@@ -84,13 +133,22 @@
     
 }
 
+
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return self.movies.count; // num movies
 }
 
+// putting the title and synopsis and image in each cell, this is essentially one of those two special methods that you needed. this is the "filler-up" method
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
     MovieCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MovieCell" forIndexPath:indexPath];
+    //self.moviesAlpha= [self.movies sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
+    
+  
+   
     NSDictionary *movie = self.movies[indexPath.row];
+    
     cell.titleLabel.text = movie[@"title"];
     cell.synopsisLabel.text = movie[@"overview"];
     
@@ -104,10 +162,7 @@
     return cell;
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
+
 
 
 
@@ -117,11 +172,18 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender { // sender is the generic term for the thing that fired the event
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
-    UITableViewCell *tappedCell = sender;
-    NSIndexPath *indexPath = [self.tableView indexPathForCell:tappedCell];
-    NSDictionary *movie = self.movies[indexPath.row];
-    DetailsViewController *detailsViewController = [segue destinationViewController]; //cast that detail view controller
-    detailsViewController.movie = movie; // just pass over the one movie, not configure views of details of view controller
+    if ([segue.identifier isEqualToString: @"settingsTransition"]){
+//        SettingsViewController *settingsViewController = [segue destinationViewController];
+//        settingsViewController.moviesViewController = self;
+        
+    }
+    else{
+        UITableViewCell *tappedCell = sender;
+        NSIndexPath *indexPath = [self.tableView indexPathForCell:tappedCell];
+        NSDictionary *movie = self.movies[indexPath.row];
+        DetailsViewController *detailsViewController = [segue destinationViewController]; //cast that detail view controller
+        detailsViewController.movie = movie; // just pass over the one movie, not configure views of details of view controller
+    }
     
    
     
