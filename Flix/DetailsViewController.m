@@ -16,6 +16,8 @@
 @property (weak, nonatomic) IBOutlet UIImageView *posterView;
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *synopsisLabel;
+@property (strong, nonatomic) NSMutableArray *favoriteMovies;
+@property (weak, nonatomic) IBOutlet UILabel *ratingLabel;
 
 @end
 
@@ -41,6 +43,7 @@
     
     self.titleLabel.text = self.movie[@"title"];
     self.synopsisLabel.text = self.movie[@"overview"];
+     self.ratingLabel.text = [NSString stringWithFormat:@"%@",  self.movie[@"vote_average"]];
     
     [self.titleLabel sizeToFit]; // adjusts so that evertyhing/ all text fits
      [self.synopsisLabel sizeToFit];

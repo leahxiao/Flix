@@ -254,6 +254,13 @@
                                         <rect key="frame" x="0.0" y="-64" width="375" height="202"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="rating" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sL2-1L-e4Y">
+                                        <rect key="frame" x="138" y="259" width="45" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                             </scrollView>
                         </subviews>
@@ -263,6 +270,7 @@
                     <connections>
                         <outlet property="backdropView" destination="gYw-fe-iZ2" id="sNz-gs-uPt"/>
                         <outlet property="posterView" destination="9oZ-Ob-lM2" id="vFP-Il-GmM"/>
+                        <outlet property="ratingLabel" destination="sL2-1L-e4Y" id="oai-7l-jJL"/>
                         <outlet property="synopsisLabel" destination="5Qv-qH-iyW" id="xVk-VO-lQm"/>
                         <outlet property="titleLabel" destination="cf9-YK-6KG" id="nw3-d4-u1c"/>
                     </connections>
