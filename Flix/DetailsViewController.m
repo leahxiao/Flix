@@ -18,6 +18,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *synopsisLabel;
 @property (strong, nonatomic) NSMutableArray *favoriteMovies;
 @property (weak, nonatomic) IBOutlet UILabel *ratingLabel;
+@property (weak, nonatomic) IBOutlet UIButton *favoriteButton;
 
 @end
 
@@ -63,6 +64,34 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+- (IBAction)isTapped:(id)sender {
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSDictionary *favorite = self.movie;
+    bool contains = NO;
+    self.favoriteMovies = [defaults objectForKey:@"favorites"]; //opening key
+    NSMutableArray *temp = [NSMutableArray arrayWithArray:self.favoriteMovies];
+    if(self.favoriteMovies != nil){
+        for(NSDictionary *movie in self.favoriteMovies){
+            if(movie[@"id"] == favorite[@"id"])
+                contains =YES;
+                break;
+        }
+    }
+    if(!contains){
+        if (temp == nil) {
+            temp = [[NSMutableArray alloc] init];
+        }
+        [temp addObject:favorite];
+        self.favoriteMovies = [temp copy];
+        [defaults setObject:self.favoriteMovies forKey:@"favorites"]; //uploads
+        [defaults synchronize];
+    }
+    
+    
+}
+
 
 
 #pragma mark - Navigation

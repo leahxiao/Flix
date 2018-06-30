@@ -22,6 +22,7 @@
 		19602E6D20E58E1C00694145 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19602E6C20E58E1C00694145 /* SettingsViewController.m */; };
 		19602E7020E5E99700694145 /* TrailerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19602E6F20E5E99700694145 /* TrailerViewController.m */; };
 		19602E7220E5F63400694145 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 19602E7120E5F63300694145 /* WebKit.framework */; };
+		1982EB2A20E6EF5F00336246 /* favoritesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1982EB2920E6EF5F00336246 /* favoritesViewController.m */; };
 		1A0D58405AB999C635F960B5 /* libPods-FlixUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 986ADC994E6267B650EC1F35 /* libPods-FlixUITests.a */; };
 		22C249F60FA16FD58F5A0C0D /* libPods-FlixTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4EE146DC4860F803279BDB85 /* libPods-FlixTests.a */; };
 		77503E39AEC3D1B9D1FCE910 /* libPods-Flix.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1E0EAD0891C2C1621C35672F /* libPods-Flix.a */; };
@@ -75,6 +76,8 @@
 		19602E6E20E5E99700694145 /* TrailerViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TrailerViewController.h; sourceTree = "<group>"; };
 		19602E6F20E5E99700694145 /* TrailerViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TrailerViewController.m; sourceTree = "<group>"; };
 		19602E7120E5F63300694145 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
+		1982EB2820E6EF5F00336246 /* favoritesViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = favoritesViewController.h; sourceTree = "<group>"; };
+		1982EB2920E6EF5F00336246 /* favoritesViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = favoritesViewController.m; sourceTree = "<group>"; };
 		1E0EAD0891C2C1621C35672F /* libPods-Flix.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Flix.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4EE146DC4860F803279BDB85 /* libPods-FlixTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-FlixTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7AF3BDBDB3028757F2A2D22C /* Pods-FlixUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FlixUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-FlixUITests/Pods-FlixUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -142,6 +145,8 @@
 				1932A0E820E40B0100DB85AB /* AppDelegate.h */,
 				1932A0E920E40B0100DB85AB /* AppDelegate.m */,
 				1932A0EE20E40B0100DB85AB /* Main.storyboard */,
+				1982EB2820E6EF5F00336246 /* favoritesViewController.h */,
+				1982EB2920E6EF5F00336246 /* favoritesViewController.m */,
 				19602E6E20E5E99700694145 /* TrailerViewController.h */,
 				19602E6F20E5E99700694145 /* TrailerViewController.m */,
 				19602E6B20E58E1C00694145 /* SettingsViewController.h */,
@@ -402,6 +407,7 @@
 				19602E6D20E58E1C00694145 /* SettingsViewController.m in Sources */,
 				19602E6A20E5652800694145 /* MovieCollectionCell.m in Sources */,
 				19602E6120E454D800694145 /* MovieCell.m in Sources */,
+				1982EB2A20E6EF5F00336246 /* favoritesViewController.m in Sources */,
 				1932A11C20E40D1100DB85AB /* MoviesViewController.m in Sources */,
 				19602E7020E5E99700694145 /* TrailerViewController.m in Sources */,
 				19602E6720E561FE00694145 /* MoviesGridViewController.m in Sources */,
